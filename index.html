@@ -185,7 +185,7 @@
     <div class="brand" data-view="home"><img src="assets/serc-logo.png" alt="SERC" /><span>SE<b>RC</b></span></div>
     <a href="#" class="active" data-view="home">Home</a>
     <a href="#" data-view="product">Product</a>
-    <a href="#" data-view="demo">Demo</a>
+    <a href="https://pcbworkspace-serc.github.io/" target="_blank" rel="noopener">Demo</a>
     <a href="#" data-view="pricing">Pricing</a>
     <a href="#" data-view="work" class="spacer">Careers</a>
   </nav>
@@ -267,14 +267,16 @@
       </div>
     </section>
 
-    <section class="panel no-media" style="align-items:center;">
+    <section class="panel no-media">
       <div class="bg"></div>
       <div class="scrim"></div>
-      <div class="panel-content reveal" style="padding-top: 110px;">
+      <div class="panel-content reveal">
         <span class="eyebrow">Try It</span>
-        <h2 style="margin-bottom:8px;">Drive MiniMEE yourself.</h2>
-        <p class="kicker" style="margin-bottom:20px;">Tap a command or type one — watch the arm pick a component and place it on the board. Same command set as the real PCB Workspace.</p>
-        <div class="demo-wrap" data-demo="home"></div>
+        <h2>Drive MiniMEE yourself.</h2>
+        <p class="kicker">Open PCB Workspace and put Layla, the vision system, and the arm through their paces — right in your browser.</p>
+        <div class="panel-cta">
+          <a href="https://pcbworkspace-serc.github.io/" target="_blank" rel="noopener" class="btn">Launch PCB Workspace <span class="arr">→</span></a>
+        </div>
       </div>
     </section>
 
@@ -331,17 +333,6 @@
         <div class="option-row" style="margin-top:12px;"><div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l1.5-6h15L21 17"/><path d="M3 17c0 2 18 2 18 0"/><path d="M12 5v6M9 8l3-3 3 3"/></svg></div><div><div class="option-title">Mars Boat</div><div class="option-sub">Tooling for Mars Boat missions</div></div></div>
         <div class="option-row" style="margin-top:12px;"><div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M7 10V7a5 5 0 0110 0v3"/><path d="M8 15h0M12 15h0M16 15h0" stroke-width="3" stroke-linecap="round"/></svg></div><div><div class="option-title">Radios</div><div class="option-sub">Tooling for radio subsystems</div></div></div>
         <a href="#" class="btn block" data-view="pricing" style="margin-top:18px;">See pricing &amp; get started →</a>
-      </div>
-    </div></div>
-  </div>
-
-  <!-- ═══ DEMO ═══ -->
-  <div class="view" id="view-demo">
-    <div class="section-wrap"><div class="container" style="max-width: 940px;">
-      <div class="section-head"><span class="eyebrow">Interactive Preview</span><h2>Drive MiniMEE in your browser.</h2><p>A live simulation of the arm — tap a command or type one, and watch it pick and place. This is a preview of the motions; the full PCB Workspace controls the physical arm over WebSerial after sign-in.</p></div>
-      <div class="card" style="background: #0a1f45; color:#fff; border:1px solid rgba(56,198,255,.18);">
-        <div class="demo-wrap" data-demo="page" style="background:transparent; border:none; padding:0; max-width:100%;"></div>
-        <a href="https://pcbworkspace-serc.github.io/" class="btn block" target="_blank" rel="noopener" style="margin-top:18px;">Open the real PCB Workspace →</a>
       </div>
     </div></div>
   </div>
@@ -437,130 +428,6 @@
       nav.style.background = window.scrollY > 60 ? 'rgba(7,23,52,.92)' : 'rgba(7,23,52,.72)';
     });
 
-    // ── MiniMEE simulator (self-contained, no backend) ──
-    function buildDemo(wrap) {
-      wrap.innerHTML = `
-        <div class="demo">
-          <div class="demo-stage">
-            <div class="demo-badge">Simulation · Preview</div>
-            <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
-              <!-- PCB board -->
-              <rect x="60" y="200" width="280" height="80" rx="6" fill="#0d3320" stroke="#2e7d52" stroke-width="1.5"/>
-              <g stroke="#2e7d52" stroke-width="1" opacity=".5">
-                <line x1="60" y1="220" x2="340" y2="220"/><line x1="60" y1="240" x2="340" y2="240"/>
-                <line x1="60" y1="260" x2="340" y2="260"/>
-                <line x1="120" y1="200" x2="120" y2="280"/><line x1="200" y1="200" x2="200" y2="280"/><line x1="280" y1="200" x2="280" y2="280"/>
-              </g>
-              <!-- placed slots -->
-              <g class="slots"></g>
-              <!-- tray of components -->
-              <text x="30" y="40" fill="#6d84a8" font-size="9" font-family="monospace">TRAY</text>
-              <g class="tray"></g>
-              <!-- SCARA arm: base -> link1 -> link2 -> nozzle -->
-              <line class="l1" x1="200" y1="60" x2="200" y2="60" stroke="#8794ab" stroke-width="9" stroke-linecap="round"/>
-              <line class="l2" x1="200" y1="60" x2="200" y2="60" stroke="#a9b6cc" stroke-width="7" stroke-linecap="round"/>
-              <circle cx="200" cy="60" r="8" fill="#0aa2e0" stroke="#38c6ff" stroke-width="2"/>
-              <circle class="elbow" r="6" fill="#12315f" stroke="#38c6ff" stroke-width="1.5"/>
-              <g class="nozzle"><circle r="5" fill="#38c6ff"/><rect x="-1.5" y="4" width="3" height="8" fill="#38c6ff"/></g>
-              <circle class="held" r="6" fill="none"/>
-            </svg>
-          </div>
-          <div class="demo-panel">
-            <div class="demo-btns">
-              <button class="demo-btn" data-cmd="home">Home</button>
-              <button class="demo-btn" data-cmd="pick">Pick</button>
-              <button class="demo-btn" data-cmd="place">Place</button>
-              <button class="demo-btn" data-cmd="rotate 90">Rotate</button>
-              <button class="demo-btn" data-cmd="move 120 235">Move</button>
-              <button class="demo-btn" data-cmd="reset">Reset</button>
-            </div>
-            <div class="demo-cmd">
-              <input type="text" placeholder="type: pick / place / move 200 235" />
-              <button class="demo-run">Run</button>
-            </div>
-            <div class="demo-log"></div>
-            <div class="demo-hint">Try: <b>pick</b> → <b>move 200 235</b> → <b>place</b>. Mirrors the real Workspace command set.</div>
-          </div>
-        </div>`;
-
-      const svg = wrap.querySelector('svg');
-      const l1 = svg.querySelector('.l1'), l2 = svg.querySelector('.l2');
-      const elbow = svg.querySelector('.elbow'), noz = svg.querySelector('.nozzle');
-      const held = svg.querySelector('.held'), trayG = svg.querySelector('.tray'), slotsG = svg.querySelector('.slots');
-      const log = wrap.querySelector('.demo-log');
-      const input = wrap.querySelector('.demo-cmd input');
-
-      const BASE = {x:200, y:60}, L1=70, L2=70;
-      let tip = {x:200, y:130}, carrying=false, rot=0, busy=false;
-      const tray = [ {x:40,y:70}, {x:40,y:100}, {x:40,y:130} ];
-      let placed = [];
-
-      function drawTray(){
-        trayG.innerHTML = tray.map(c=>`<rect x="${c.x-7}" y="${c.y-5}" width="14" height="10" rx="2" fill="#c88a3a" stroke="#e0a860" stroke-width="1"/>`).join('');
-      }
-      function drawSlots(){
-        slotsG.innerHTML = placed.map(c=>`<rect x="${c.x-7}" y="${c.y-5}" width="14" height="10" rx="2" transform="rotate(${c.r} ${c.x} ${c.y})" fill="#0aa2e0" stroke="#38c6ff" stroke-width="1"/>`).join('');
-      }
-      // inverse kinematics for 2-link arm reaching (x,y) from BASE
-      function ik(x,y){
-        const dx=x-BASE.x, dy=y-BASE.y; let d=Math.hypot(dx,dy);
-        d = Math.min(d, L1+L2-0.5);
-        const a2 = Math.acos(Math.min(1,Math.max(-1,(d*d-L1*L1-L2*L2)/(2*L1*L2))));
-        const a1 = Math.atan2(dy,dx) - Math.atan2(L2*Math.sin(a2), L1+L2*Math.cos(a2));
-        const ex = BASE.x + L1*Math.cos(a1), ey = BASE.y + L1*Math.sin(a1);
-        return {ex,ey};
-      }
-      function render(){
-        const {ex,ey} = ik(tip.x, tip.y);
-        l1.setAttribute('x2',ex); l1.setAttribute('y2',ey);
-        l2.setAttribute('x1',ex); l2.setAttribute('y1',ey); l2.setAttribute('x2',tip.x); l2.setAttribute('y2',tip.y);
-        elbow.setAttribute('cx',ex); elbow.setAttribute('cy',ey);
-        noz.setAttribute('transform',`translate(${tip.x},${tip.y})`);
-        if(carrying){ held.setAttribute('cx',tip.x); held.setAttribute('cy',tip.y+8); held.setAttribute('fill','#c88a3a'); held.setAttribute('stroke','#e0a860'); held.setAttribute('stroke-width','1'); }
-        else held.setAttribute('fill','none'), held.setAttribute('stroke','none');
-      }
-      function say(t, cls){ const d=document.createElement('div'); d.innerHTML = cls?`<span class="${cls}">${t}</span>`:t; log.appendChild(d); log.scrollTop=log.scrollHeight; }
-      function animateTo(tx,ty,ms){ return new Promise(res=>{
-        const sx=tip.x, sy=tip.y, t0=performance.now();
-        (function step(now){ let k=Math.min(1,(now-t0)/ms); k=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
-          tip.x=sx+(tx-sx)*k; tip.y=sy+(ty-sy)*k; render();
-          if(k<1) requestAnimationFrame(step); else res();
-        })(t0);
-      });}
-
-      async function run(raw){
-        if(busy) return; const cmd=raw.trim().toLowerCase(); if(!cmd) return;
-        busy=true; wrap.querySelectorAll('.demo-btn,.demo-run').forEach(b=>b.disabled=true);
-        say('<span class="u">› '+cmd+'</span>');
-        try{
-          if(cmd==='home'){ await animateTo(200,130,600); say('at home position','ok'); }
-          else if(cmd==='reset'){ placed=[]; tray.length=0; tray.push({x:40,y:70},{x:40,y:100},{x:40,y:130}); carrying=false; rot=0; drawTray(); drawSlots(); await animateTo(200,130,400); say('reset','ok'); }
-          else if(cmd==='pick'){
-            if(carrying){ say('already carrying a component'); }
-            else if(!tray.length){ say('tray empty — try reset'); }
-            else { const c=tray[0]; await animateTo(c.x,c.y,700); tray.shift(); drawTray(); carrying=true; render(); say('component picked','ok'); await animateTo(tip.x,tip.y-20,250); }
-          }
-          else if(cmd==='place'){
-            if(!carrying){ say('nothing to place — pick first'); }
-            else { const y=235; await animateTo(tip.x, y, 600); placed.push({x:tip.x,y:y,r:rot}); carrying=false; drawSlots(); render(); say('component placed','ok'); await animateTo(tip.x, y-30, 300); }
-          }
-          else if(cmd.startsWith('rotate')){ const a=parseInt(cmd.split(/\s+/)[1]||'90'); rot=(rot+a)%360; say('nozzle rotated '+a+'°','ok'); }
-          else if(cmd.startsWith('move')){ const p=cmd.split(/\s+/); const x=+p[1], y=+p[2];
-            if(isNaN(x)||isNaN(y)){ say('usage: move <x> <y>  (e.g. move 200 235)'); }
-            else { const cx=Math.max(70,Math.min(330,x)), cy=Math.max(90,Math.min(250,y)); await animateTo(cx,cy,700); say('moved to '+cx+', '+cy,'ok'); } }
-          else say('unknown command — try home, pick, place, move x y, rotate, reset');
-        } finally { busy=false; wrap.querySelectorAll('.demo-btn,.demo-run').forEach(b=>b.disabled=false); }
-      }
-
-      wrap.querySelectorAll('.demo-btn').forEach(b=> b.addEventListener('click',()=>run(b.dataset.cmd)));
-      wrap.querySelector('.demo-run').addEventListener('click',()=>{ run(input.value); input.value=''; });
-      input.addEventListener('keydown',e=>{ if(e.key==='Enter'){ run(input.value); input.value=''; }});
-
-      drawTray(); drawSlots(); render();
-      say('MiniMEE ready. Tap a command to begin.','ok');
-    }
-
-    document.querySelectorAll('.demo-wrap').forEach(buildDemo);
 
     setupReveals();
   </script>
