@@ -182,7 +182,7 @@
 
 <body>
   <nav id="main-nav">
-    <div class="brand" data-view="home"><img src="assets/serc-logo.png" alt="SERC" /><span>SE<b>RC</b></span></div>
+    <div class="brand" data-view="home"><img src="assets/serc-logo-light.png" alt="SERC — Space Engineered Robotics Creations" /></div>
     <a href="#" class="active" data-view="home">Home</a>
     <a href="#" data-view="product">Product</a>
     <a href="https://pcbworkspace-serc.github.io/" target="_blank" rel="noopener">Demo</a>
@@ -193,11 +193,10 @@
   <!-- ═══ HOME: scroll panels ═══ -->
   <div class="view active" id="view-home">
 
-    <!-- PANEL 1 — HERO. Swap media: replace <video> src, or delete <video> and add class "no-media" to fall back to gradient. -->
+    <!-- PANEL 1 — HERO. To use a video instead: replace the .bg div with
+         <video class="bg" autoplay loop muted playsinline><source src="assets/video.mp4" type="video/mp4" /></video> -->
     <section class="panel" id="hero">
-      <video class="bg" autoplay loop muted playsinline poster="assets/serc-logo.png">
-        <source src="assets/video.mp4" type="video/mp4" />
-      </video>
+      <div class="bg" style="background-image:url('assets/arm_hero.png')"></div>
       <div class="scrim"></div>
       <div class="panel-content">
         <span class="eyebrow">Vision-Guided Robotic Assembly</span>
@@ -222,7 +221,7 @@
 
     <!-- PANEL 2 — Add a photo: set .bg background-image inline (see commented example) and remove "no-media". -->
     <section class="panel" data-bg-hint="close-up of MiniMEE arm mid-placement">
-      <div class="bg" style="background-image:url('assets/arm_hero.png')"></div>
+      <div class="bg" style="background-image:url('assets/arm_side.png')"></div>
       <div class="scrim"></div>
       <div class="panel-content reveal">
         <span class="eyebrow">The Machine</span>
@@ -261,8 +260,18 @@
         <span class="eyebrow">See It Move</span>
         <h2 style="margin-bottom:26px;">MiniMEE in action.</h2>
         <div class="demo-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-          <div class="yt-wrap" style="margin-top:0;"><iframe src="https://www.youtube.com/embed/NKKJLQduE7Y" title="MiniMEE Robot Arm Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-          <div class="yt-wrap" style="margin-top:0;"><iframe src="https://www.youtube.com/embed/HpRibWbAz1g" title="PCB Workspace Software Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div>
+            <div style="font-size:.8rem; font-weight:600; color:#cdd9ec; margin-bottom:8px;">The arm</div>
+            <div class="yt-wrap" style="margin-top:0;"><iframe src="https://www.youtube.com/embed/NKKJLQduE7Y" title="MiniMEE Robot Arm Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          </div>
+          <div>
+            <div style="font-size:.8rem; font-weight:600; color:#cdd9ec; margin-bottom:8px;">The software</div>
+            <div class="yt-wrap" style="margin-top:0;"><iframe src="https://www.youtube.com/embed/HpRibWbAz1g" title="PCB Workspace Software Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          </div>
+        </div>
+        <div style="margin-top:20px;">
+          <div style="font-size:.8rem; font-weight:600; color:#cdd9ec; margin-bottom:8px;">From the founder</div>
+          <div class="yt-wrap" style="margin-top:0; max-width:560px;"><iframe src="https://www.youtube.com/embed/JeROweUQu74" title="SERC Founder" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         </div>
       </div>
     </section>
